@@ -1,9 +1,19 @@
 import 'package:expense_tracker/screens/home/views/main_screen.dart';
+import 'package:expense_tracker/screens/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  //var widgetList = [MainScreen(), StatsScreen()];
+
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +30,11 @@ class HomeScreen extends StatelessWidget {
             border: Border(top: BorderSide(color: Colors.white10, width: 1)),
           ),
           child: BottomNavigationBar(
+            onTap: (value) {
+              setState(() {
+                index = value;
+              });
+            },
             backgroundColor: Colors.transparent,
             elevation: 0,
             showSelectedLabels: false,
@@ -80,7 +95,7 @@ class HomeScreen extends StatelessWidget {
       ),
 
       // ---------------- BODY ----------------
-      body: const MainScreen(),
+      body: index == 0 ? MainScreen() : StatsScreen(),
     );
   }
 }
